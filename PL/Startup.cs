@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DAL;
+using DAL.Interfaces;
+using BLL;
 
 namespace PL
 {
@@ -29,11 +31,17 @@ namespace PL
         {
             services.AddDbContext<AnkhMorporkContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"), options => options.MigrationsAssembly("DAL")));
+                    Configuration.GetConnectionString("DefaultConnection"), 
+                    options => options.MigrationsAssembly("DAL")));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<AnkhMorporkContext>();
+
             services.AddControllersWithViews();
         }
 
