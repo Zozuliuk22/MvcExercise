@@ -10,7 +10,7 @@ using BLL.DTOs;
 
 namespace BLL
 {
-    public class ScenarioCreator : IScenarioCreator
+    public class ScenarioCreatorService : IScenarioCreatorService
     {
         private readonly ThievesGuild _thievesGuild;
         private readonly BeggarsGuild _beggarsGuild;
@@ -21,16 +21,17 @@ namespace BLL
         private List<MethodInfo> _methodsCreateGuild;
 
         private Player _currentPlayer;
+        private string _currentResult = String.Empty;
 
 
-        public ScenarioCreator(IUnitOfWork unitOfWork)
+        public ScenarioCreatorService(IUnitOfWork unitOfWork)
         {
             _thievesGuild = new ThievesGuild();
             _beggarsGuild = new BeggarsGuild(unitOfWork);
             _foolsGuild = new FoolsGuild(unitOfWork);
             _assassinsGuild = new AssassinsGuild(unitOfWork);
 
-            _methodsCreateGuild = typeof(ScenarioCreator)
+            _methodsCreateGuild = typeof(ScenarioCreatorService)
                 .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(m => m.Name.StartsWith("Create"))
                 .ToList();
@@ -38,30 +39,6 @@ namespace BLL
             _currentPlayer = new Player("Viktor");
         }
 
-        /// <summary>
-        /// Initialise all exist guilds by data from Json files in the InputData folder.
-        /// </summary>
-        //public void InitialiseAllGuilds()
-        //{
-        //    var dataLoader = new DataLoader();
-
-        //    _assassinsGuild.CreateNpcs(
-        //        dataLoader.LoadNpcsFromJson(
-        //            Paths.pathToAssassinsJsonFile));
-
-        //    _beggarsGuild.CreateNpcs(
-        //        dataLoader.LoadNpcsFromJson(
-        //            Paths.pathToBeggarsJsonFile));
-
-        //    _foolsGuild.CreateNpcs(
-        //        dataLoader.LoadNpcsFromJson(
-        //            Paths.pathToFoolsJsonFile));
-        //}
-
-        /// <summary>
-        /// Create a meeting with the random Guild.
-        /// </summary>
-        /// <returns>The created Meeting object.</returns>
         public MeetingDto CreateRandomGuildMeeting()
         {
             _currentMeeting = (Meeting)_methodsCreateGuild[new Random()
@@ -71,8 +48,12 @@ namespace BLL
             var meetingDto = new MeetingDto()
             {
                 WelcomeGuildsWord = _currentMeeting.Guild.WelcomeMessage,
-                Color = _currentMeeting.Guild.GuildColor.ToString(),                
-                GuildName = _currentMeeting.Guild.ToString()
+                Color = _currentMeeting.Guild.GuildColor.ToString(),
+                GuildName = _currentMeeting.ToString(),
+                PlayerCurrentBudget = _currentPlayer.CurrentBudget,
+                PlayerIsAlive = _currentPlayer.IsAlive,
+                PlayerScore = _currentPlayer.ToString(),
+                ResultMeetingMessage = _currentResult
             };
 
             if (_currentMeeting.Npc is null)
@@ -83,10 +64,6 @@ namespace BLL
             return meetingDto;
         }
 
-        /// <summary>
-        /// Create a meeting with the Thieves' Guild.
-        /// </summary>
-        /// <returns>The created Meeting object with the Thieves' Guild.</returns>
         private Meeting CreateThievesGuildMeeting()
         {
             _thievesGuild.AddTheft();
@@ -105,85 +82,59 @@ namespace BLL
             }
         }
 
-        /// <summary>
-        /// Create a meeting with the Beggars' Guild.
-        /// </summary>
-        /// <returns>The created Meeting object with the Beggars' Guild.</returns>
         private Meeting CreateBeggarsGuildMeeting()
         {
             _currentMeeting = new Meeting(_beggarsGuild, _beggarsGuild.GetActiveNpc());
             return _currentMeeting;
         }
 
-        /// <summary>
-        /// Create a meeting with the Assassins' Guild.
-        /// </summary>
-        /// <returns>The created Meeting object with the Assassins' Guild.</returns>
         private Meeting CreateAssassinsGuildMeeting()
         {
             _currentMeeting = new Meeting(_assassinsGuild);
             return _currentMeeting;
         }
 
-        /// <summary>
-        /// Create a meeting with the Fools' Guild.
-        /// </summary>
-        /// <returns>The created Meeting object with the Fools' Guild.</returns>
         private Meeting CreateFoolsGuildMeeting()
         {
             _currentMeeting = new Meeting(_foolsGuild, _foolsGuild.GetActiveNpc());
             return _currentMeeting;
         }
 
-        /// <summary>
-        /// Accept the current meeting with some Guild and play a game with them.
-        /// </summary>
-        /// <param name="player">The Player object.</param>
-        /// <returns>The text-result of accepting a meeting with the exist guild.</returns>
-        public string Accept(Player player)
+        public void Accept()
         {
             if (_currentMeeting.Guild is ThievesGuild)
-                return _thievesGuild.PlayGame(player);
+                _currentResult = _thievesGuild.PlayGame(_currentPlayer);
 
             if (_currentMeeting.Guild is BeggarsGuild)
-                return _beggarsGuild.PlayGame(player);
+                _currentResult = _beggarsGuild.PlayGame(_currentPlayer);
 
             if (_currentMeeting.Guild is FoolsGuild)
-                return _foolsGuild.PlayGame(player);
+                _currentResult = _foolsGuild.PlayGame(_currentPlayer);
 
-            if (_currentMeeting.Guild is AssassinsGuild)
-                return _assassinsGuild.PlayGame(player);
+            /*if (_currentMeeting.Guild is AssassinsGuild)
+                _currentResult = _assassinsGuild.PlayGame(_currentPlayer);*/
 
-            return "This is unknown guild.";
+            //_currentResult = "This is unknown guild.";
         }
 
-        /// <summary>
-        /// Skip the current meeting with some Guild.
-        /// </summary>
-        /// <param name="player">The Player object.</param>
-        /// <returns>The text-result of skipping a meeting with the exist guild.</returns>
-        public string Skip(Player player)
+        public void Skip()
         {
             if (_currentMeeting.Guild is ThievesGuild)
-                return _thievesGuild.LoseGame(player);
+                _currentResult = _thievesGuild.LoseGame(_currentPlayer);
 
             if (_currentMeeting.Guild is BeggarsGuild)
-                return _beggarsGuild.LoseGame(player);
+                _currentResult = _beggarsGuild.LoseGame(_currentPlayer);
 
             if (_currentMeeting.Guild is FoolsGuild)
-                return _foolsGuild.LoseGame(player);
+                _currentResult = _foolsGuild.LoseGame(_currentPlayer);
 
             if (_currentMeeting.Guild is AssassinsGuild)
-                return _assassinsGuild.LoseGame(player);
+                _currentResult = _assassinsGuild.LoseGame(_currentPlayer);
 
-            return "This is unknown guild.";
+            //_currentResult = "This is unknown guild.";
         }
 
-        /// <summary>
-        /// Use the entered fee by a player.
-        /// If the current meeting with a guild that is the Assassins' Guild, try to get a NPC for the meeting.
-        /// </summary>
-        /// <param name="fee">The entered fee by a player.</param>
+
         public void UseEnteredFee(decimal fee)
         {
             if (_currentMeeting.Guild is AssassinsGuild)

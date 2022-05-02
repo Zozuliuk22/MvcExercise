@@ -1,12 +1,29 @@
-﻿@model PL.Models.MeetingModel
+﻿@using PL.Properties
+@model PL.Models.MeetingModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Meeting";
 }
 
-<h4 style="color : @Model.Color">@Model.GuildName</h4>
-<h4>@Model.WelcomeGuildsWord</h4>
+@if (Model.PlayerIsAlive)
+{
+    <div>
+        @if(Model.ResultMeetingMessage != String.Empty)
+        {
+            <p>@Model.ResultMeetingMessage</p>
+        }
+        <p>@ScenarioTexts.WalkingMessage @Model.GuildName</p>
+        <p>@Model.WelcomeGuildsWord</p>
+        <p>@Model.WelcomeNpcsWord</p>
+        <p>Current budget: @Model.PlayerCurrentBudget</p>
+    </div>
 
-
-<a asp-controller="Meeting" asp-action="Accept">Accept</a>
+    <a asp-controller="Meeting" asp-action="Accept">Accept</a>
 <a asp-controller="Meeting" asp-action="Skip">Skip</a>
+}
+else
+{
+    <div>
+        <p>@Model.PlayerScore</p>
+    </div>
+}

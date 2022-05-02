@@ -10,6 +10,7 @@ namespace BLL
     {
         private const decimal _startBudget = 100;
         private int _score = 0;
+        private const byte _maxBeers = 2;
 
         public string Name { get; set; }
 
@@ -19,6 +20,8 @@ namespace BLL
 
         public decimal CurrentBudget { get; private set; }
 
+        public int CurrentBeers { get; private set; }
+
         public Player(string name)
         {
             if (String.IsNullOrWhiteSpace(name))
@@ -26,6 +29,7 @@ namespace BLL
 
             Name = name;
             CurrentBudget = _startBudget;
+            CurrentBeers = 0;
             IsAlive = true;
         }
 
@@ -45,6 +49,10 @@ namespace BLL
             CurrentBudget -= fee;
             _score += 1;
         }
+
+        public void FindBeer() => CurrentBeers += 1;
+
+        public void LoseBeer() => CurrentBeers -= 1;
 
         public string ToDie()
         {

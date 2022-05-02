@@ -33,7 +33,7 @@ namespace PL
                     options => options.MigrationsAssembly("DAL")), ServiceLifetime.Singleton);
 
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
-            services.AddSingleton<IScenarioCreator, ScenarioCreator>();
+            services.AddSingleton<IScenarioCreatorService, ScenarioCreatorService>();
 
             services.AddControllersWithViews();
         }

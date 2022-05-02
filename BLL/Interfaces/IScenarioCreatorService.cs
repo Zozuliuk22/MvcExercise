@@ -7,11 +7,11 @@ using BLL.DTOs;
 
 namespace BLL
 {
-    public interface IScenarioCreator
+    public interface IScenarioCreatorService
     {
         MeetingDto CreateRandomGuildMeeting();
-        string Accept(Player player);
-        string Skip(Player player);
+        void Accept();
+        void Skip();
         void UseEnteredFee(decimal fee);
     }
 }
