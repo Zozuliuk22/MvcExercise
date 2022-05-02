@@ -1,11 +1,22 @@
-﻿@{
+﻿@using PL.Properties;
+@{
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    
-</div>
-
-<div class="text-center">    
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div>
+   <div>
+        <img src="~/images/HomeImage.jpg" style="width : 40%"/>
+   </div>
+   <div>
+        <p>@ScenarioTexts.WelcomeTitle</p>
+        <p>@ScenarioTexts.WelcomeMessagePart1</p>
+        <p>@ScenarioTexts.WelcomeMessagePart2</p>
+        <p>@ScenarioTexts.WelcomeMessagePart3</p>
+        <p>@ScenarioTexts.WelcomeMessagePart4</p>
+        <p>@ScenarioTexts.InstructionsTitle</p>
+        <p>@ScenarioTexts.InstructionsPoint1</p>
+        <p>@ScenarioTexts.InstructionsPoint2</p>
+        <p>@ScenarioTexts.InstructionsPoint3</p>
+        <p>@ScenarioTexts.WelcomeWarningMessage</p>
+    </div>
+ </div>

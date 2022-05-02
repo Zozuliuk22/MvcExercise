@@ -21,7 +21,6 @@ namespace BLL
         private List<MethodInfo> _methodsCreateGuild;
 
         private Player _currentPlayer;
-        private int test = 0;
 
 
         public ScenarioCreator(IUnitOfWork unitOfWork)
@@ -80,8 +79,6 @@ namespace BLL
                 meetingDto.WelcomeNpcsWord = "";
             else
                 meetingDto.WelcomeNpcsWord = _currentMeeting.Npc.ToString();
-
-            test = 12;
 
             return meetingDto;
         }
