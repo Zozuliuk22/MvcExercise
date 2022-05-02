@@ -29,14 +29,14 @@ namespace PL.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public ScenarioTexts() {
+        internal ScenarioTexts() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PL.Properties.ScenarioTexts", typeof(ScenarioTexts).Assembly);
@@ -51,7 +51,7 @@ namespace PL.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -68,7 +68,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("EnterChoiceMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Please, enter a fee as much as you want (but not more than you have):.
         /// </summary>
@@ -77,7 +77,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("EnterFeeMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to There are not lots of rules. All that you must know: You have 100 AM$ at the beginning of the game..
         /// </summary>
@@ -86,7 +86,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("InstructionsPoint1", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to In this city you will be go along streets and have meetings with different members of local guilds..
         /// </summary>
@@ -95,7 +95,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("InstructionsPoint2", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Read guidance closely as the game progresses. And my advice for you : Try to survive as long as possible..
         /// </summary>
@@ -104,7 +104,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("InstructionsPoint3", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to INSTRUCTIONS.
         /// </summary>
@@ -113,7 +113,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("InstructionsTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to You go along the streets of Ankh-Morpork and ....
         /// </summary>
@@ -122,7 +122,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("WalkingMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ankh-Morpork lies on the River Ankh (the most polluted waterway on the Discworld and reputedly solid enough to walk on),.
         /// </summary>
@@ -131,7 +131,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("WelcomeMessagePart1", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to where the fertile loam of the Sto Plains meets the Circle Sea. This, naturally, puts it in an excellent trading position..
         /// </summary>
@@ -140,7 +140,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("WelcomeMessagePart2", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The central city divides more or less into Ankh (the posh part) and Morpork (the humble part,.
         /// </summary>
@@ -149,7 +149,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("WelcomeMessagePart3", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to which includes the slum area known as &quot;the Shades&quot;), which are separated by the River Ankh..
         /// </summary>
@@ -158,7 +158,7 @@ namespace PL.Properties {
                 return ResourceManager.GetString("WelcomeMessagePart4", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Welcome to the fine city of Ankh-Morpork!.
         /// </summary>
