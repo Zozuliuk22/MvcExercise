@@ -29,11 +29,6 @@ namespace BLL
             IsAlive = true;
         }
 
-        /// <summary>
-        /// Add to the current budget the bonus value.
-        /// </summary>
-        /// <param name="bonus">The bonus value.</param>
-        /// <exception cref="ArgumentException">The bonus must be bigger or equal then zero.</exception>
         public void EarnMoney(decimal bonus)
         {
             if (bonus < 0)
@@ -42,11 +37,6 @@ namespace BLL
             _score += 1;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fee"></param>
-        /// <exception cref="ArgumentException"></exception>
         public void LoseMoney(decimal fee)
         {
             if (fee < 0 || fee > CurrentBudget)
@@ -56,10 +46,6 @@ namespace BLL
             _score += 1;
         }
 
-        /// <summary>
-        /// A player dies that means game is over.
-        /// </summary>
-        /// <returns>The "You were killed!" message.</returns>
         public string ToDie()
         {
             IsAlive = false;

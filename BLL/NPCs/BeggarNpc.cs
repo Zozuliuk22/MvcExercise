@@ -26,9 +26,7 @@ namespace BLL.NPCs
                 return false;
             else
             {
-                if (other.Name.Equals(Name) && other.Practice.Equals(Practice))
-                    return true;
-                return false;
+                return other.Name.Equals(Name) && other.Practice.Equals(Practice);
             }
         }
 

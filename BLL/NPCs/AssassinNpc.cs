@@ -18,10 +18,7 @@ namespace BLL.NPCs
         {
             get
             {
-                if (DateTime.Now.Subtract(_startingDataOccupied).TotalSeconds <= 180)
-                    return true;
-                else
-                    return false;
+                return DateTime.Now.Subtract(_startingDataOccupied).TotalSeconds <= 180;
             }
         }
 
@@ -44,11 +41,9 @@ namespace BLL.NPCs
                 return false;
             else
             {
-                if (other.Name.Equals(Name)
+                return other.Name.Equals(Name)
                     && other.MinReward.Equals(MinReward)
-                    && other.MaxReward.Equals(MaxReward))
-                    return true;
-                return false;
+                    && other.MaxReward.Equals(MaxReward);
             }
         }
 

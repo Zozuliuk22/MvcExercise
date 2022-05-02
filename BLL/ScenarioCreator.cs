@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Guilds;
 using System.Reflection;
+using DAL.Interfaces;
+using BLL.DTOs;
 
 namespace BLL
 {
-    public class ScenarioCreator
+    public class ScenarioCreator : IScenarioCreator
     {
         private readonly ThievesGuild _thievesGuild;
         private readonly BeggarsGuild _beggarsGuild;
@@ -18,18 +20,23 @@ namespace BLL
         private Meeting _currentMeeting;
         private List<MethodInfo> _methodsCreateGuild;
 
+        private Player _currentPlayer;
+        private int test = 0;
 
-        public ScenarioCreator()
+
+        public ScenarioCreator(IUnitOfWork unitOfWork)
         {
             _thievesGuild = new ThievesGuild();
-            _beggarsGuild = new BeggarsGuild();
-            _foolsGuild = new FoolsGuild();
-            _assassinsGuild = new AssassinsGuild();
+            _beggarsGuild = new BeggarsGuild(unitOfWork);
+            _foolsGuild = new FoolsGuild(unitOfWork);
+            _assassinsGuild = new AssassinsGuild(unitOfWork);
 
             _methodsCreateGuild = typeof(ScenarioCreator)
                 .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(m => m.Name.StartsWith("Create"))
                 .ToList();
+
+            _currentPlayer = new Player("Viktor");
         }
 
         /// <summary>
@@ -56,11 +63,27 @@ namespace BLL
         /// Create a meeting with the random Guild.
         /// </summary>
         /// <returns>The created Meeting object.</returns>
-        public Meeting CreateRandomGuildMeeting()
+        public MeetingDto CreateRandomGuildMeeting()
         {
-            return (Meeting)_methodsCreateGuild[new Random()
+            _currentMeeting = (Meeting)_methodsCreateGuild[new Random()
                                                     .Next(0, _methodsCreateGuild.Count)]
                                                     .Invoke(this, null);
+
+            var meetingDto = new MeetingDto()
+            {
+                WelcomeGuildsWord = _currentMeeting.Guild.WelcomeMessage,
+                Color = _currentMeeting.Guild.GuildColor.ToString(),                
+                GuildName = _currentMeeting.Guild.ToString()
+            };
+
+            if (_currentMeeting.Npc is null)
+                meetingDto.WelcomeNpcsWord = "";
+            else
+                meetingDto.WelcomeNpcsWord = _currentMeeting.Npc.ToString();
+
+            test = 12;
+
+            return meetingDto;
         }
 
         /// <summary>
@@ -75,7 +98,8 @@ namespace BLL
             {
                 var method = _methodsCreateGuild.First(m => m.Name.Contains("Thieves"));
                 _methodsCreateGuild.Remove(method);
-                return CreateRandomGuildMeeting();
+                CreateRandomGuildMeeting();
+                return _currentMeeting;
             }
             else
             {
@@ -168,7 +192,7 @@ namespace BLL
             if (_currentMeeting.Guild is AssassinsGuild)
             {
                 if (((AssassinsGuild)_currentMeeting.Guild).CheckContract(fee))
-                    _currentMeeting.Guild.GetActiveNpc();
+                    ((AssassinsGuild)_currentMeeting.Guild).GetActiveNpc();
             }
         }
     }

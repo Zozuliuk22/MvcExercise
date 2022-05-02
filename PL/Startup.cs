@@ -32,10 +32,10 @@ namespace PL
             services.AddDbContext<AnkhMorporkContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"), 
-                    options => options.MigrationsAssembly("DAL")));
+                    options => options.MigrationsAssembly("DAL")), ServiceLifetime.Singleton);
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IScenarioCreator, ScenarioCreator>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

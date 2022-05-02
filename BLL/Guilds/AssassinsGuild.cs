@@ -4,13 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.NPCs;
+using DAL.Interfaces;
 
 namespace BLL.Guilds
 {
     public class AssassinsGuild : Guild
     {
+        private IUnitOfWork _unitOfWork;
+
         private AssassinNpc _activeNpc;
         private decimal _enteredFee;
+        private List<AssassinNpc> _npcs = new List<AssassinNpc>();
+
+        public AssassinsGuild(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+            InitializeGuild();
+        }
 
         public override string WelcomeMessage
         {
@@ -26,7 +36,7 @@ namespace BLL.Guilds
         {
             if (fee > 0)
             {
-                _activeNpc = Npcs.OfType<AssassinNpc>()
+                _activeNpc = _npcs.OfType<AssassinNpc>()
                            .Where(v => v.IsOccupied.Equals(false))
                            .Where(v => v.MinReward <= fee && v.MaxReward >= fee)
                            .OrderBy(v => v.Name)
@@ -43,7 +53,7 @@ namespace BLL.Guilds
             return true;
         }
 
-        public override Npc GetActiveNpc()
+        public Npc GetActiveNpc()
         {
             if (_activeNpc.IsOccupied)
                 throw new Exception("Before this, player must enter fee and check contract.");
@@ -71,5 +81,19 @@ namespace BLL.Guilds
         }
 
         public override string ToString() => $"Assassins' Guild";
+
+        private void InitializeGuild()
+        {
+            var npcs = _unitOfWork.AssassinNpcs.GetAll();
+            foreach (var npc in npcs)
+            {
+                _npcs.Add(new AssassinNpc()
+                {
+                    Name = npc.Name,
+                    MinReward = npc.MinReward,
+                    MaxReward = npc.MaxReward
+                });
+            }
+        }
     }
 }

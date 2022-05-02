@@ -4,13 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.NPCs;
+using BLL.Constants;
 using DAL.Enums;
+using DAL.Interfaces;
+
+
 
 namespace BLL.Guilds
 {
     public class BeggarsGuild : Guild
     {
+        private IUnitOfWork _unitOfWork;
+
+        private List<BeggarNpc> _npcs = new List<BeggarNpc>();
         private BeggarNpc _activeNpc;
+
+        public BeggarsGuild(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+            InitializeGuild();
+        }
 
         public override string WelcomeMessage
         {
@@ -21,9 +34,13 @@ namespace BLL.Guilds
 
         public override ConsoleColor GuildColor => ConsoleColor.DarkGreen;
 
-        public override Npc GetActiveNpc()
+        public Npc GetActiveNpc()
         {
-            _activeNpc = (BeggarNpc)base.GetActiveNpc();
+            if (!_npcs.Equals(null) && _npcs.Count > 0)
+                _activeNpc = _npcs[new Random().Next(0, _npcs.Count)];
+            else
+                throw new ArgumentNullException("No one NPC was created.");
+
             return _activeNpc;
         }
 
@@ -50,5 +67,20 @@ namespace BLL.Guilds
         }
 
         public override string ToString() => $"Beggars' Guild";
+
+        private void InitializeGuild()
+        {
+            var npcs = _unitOfWork.BeggarNpcs.GetAll();
+            foreach (var npc in npcs)
+            {
+                _npcs.Add(new BeggarNpc()
+                {
+                    Name = npc.Name,
+                    Practice = npc.Practice,
+                    Fee = PracticesInfo.BeggarsPracticeInfo[npc.Practice].Item2,
+                    FullPracticeName = PracticesInfo.BeggarsPracticeInfo[npc.Practice].Item1
+                });
+            }
+        }
     }
 }

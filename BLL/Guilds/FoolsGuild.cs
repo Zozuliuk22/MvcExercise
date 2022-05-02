@@ -4,12 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.NPCs;
+using BLL.Constants;
+using DAL.Interfaces;
 
 namespace BLL.Guilds
 {
     public class FoolsGuild : Guild
     {
+        private IUnitOfWork _unitOfWork;
+
+        private List<FoolNpc> _npcs = new List<FoolNpc>();
         private FoolNpc _activeNpc;
+
+        public FoolsGuild(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+            InitializeGuild();
+        }
 
         public override string WelcomeMessage
         {
@@ -19,9 +30,13 @@ namespace BLL.Guilds
 
         public override ConsoleColor GuildColor => ConsoleColor.Yellow;
 
-        public override Npc GetActiveNpc()
+        public Npc GetActiveNpc()
         {
-            _activeNpc = (FoolNpc)base.GetActiveNpc();
+            if (!_npcs.Equals(null) && _npcs.Count > 0)
+                _activeNpc = _npcs[new Random().Next(0, _npcs.Count)];
+            else
+                throw new ArgumentNullException("No one NPC was created.");
+
             return _activeNpc;
         }
 
@@ -44,5 +59,20 @@ namespace BLL.Guilds
         }
 
         public override string ToString() => $"Fools' Guild";
+
+        private void InitializeGuild()
+        {
+            var npcs = _unitOfWork.FoolNpcs.GetAll();
+            foreach (var npc in npcs)
+            {
+                _npcs.Add(new FoolNpc()
+                {
+                    Name = npc.Name,
+                    Practice = npc.Practice,
+                    Bonus = PracticesInfo.FoolsPracticeInfo[npc.Practice].Item2,
+                    FullPracticeName = PracticesInfo.FoolsPracticeInfo[npc.Practice].Item1
+                });
+            }
+        }
     }
 }

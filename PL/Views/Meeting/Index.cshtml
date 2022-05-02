@@ -1,0 +1,12 @@
+﻿@model PL.Models.MeetingModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Meeting";
+}
+
+<h4 style="color : @Model.Color">@Model.GuildName</h4>
+<h4>@Model.WelcomeGuildsWord</h4>
+
+
+<a asp-controller="Meeting" asp-action="Accept">Accept</a>
+<a asp-controller="Meeting" asp-action="Skip">Skip</a>
