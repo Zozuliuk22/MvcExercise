@@ -14,7 +14,7 @@ namespace PL.Controllers
         public EventController(IScenarioCreatorService scenarioCreator)
         {
             _scenarioCreator = scenarioCreator;
-            _mapper = new MapperConfiguration(x => x.CreateMap<MeetingDto, EventModel>()).CreateMapper();
+            _mapper = new MapperConfiguration(x => x.CreateMap<EventDto, EventModel>()).CreateMapper();
         }
 
         public IActionResult Index()
@@ -41,6 +41,12 @@ namespace PL.Controllers
         {
             _scenarioCreator.UseEnteredFee(model.EnteredFee);
             _scenarioCreator.Accept();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Reset()
+        {
+            _scenarioCreator.Reset();
             return RedirectToAction("Index");
         }
     }

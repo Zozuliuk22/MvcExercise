@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace BLL.DTOs
 {
-    public class MeetingDto
+    public class EventDto
     {
         public string Name { get; set; }
 

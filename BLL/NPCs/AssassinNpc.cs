@@ -30,6 +30,11 @@ namespace BLL.NPCs
                 _startingDataOccupied = DateTime.Now;
         }
 
+        internal void CompliteContract()
+        {
+            _startingDataOccupied = DateTime.Now.AddSeconds(-300);
+        }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as AssassinNpc);

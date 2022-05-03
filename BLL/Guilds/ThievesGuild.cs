@@ -54,6 +54,11 @@ namespace BLL.Guilds
             return base.LoseGame(player) + " That's a result of thieves' codex.";
         }
 
+        public override void Reset()
+        {
+            CurrentNumberThefts = 0;
+        }
+
         public override string ToString() => "Thieves' Guild";
     }
 }

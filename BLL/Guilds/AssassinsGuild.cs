@@ -99,5 +99,12 @@ namespace BLL.Guilds
                 });
             }
         }
+
+        public override void Reset()
+        {
+            _activeNpc = null;
+            _enteredFee = 0;
+            _npcs.ForEach(a => a.CompliteContract());
+        }
     }
 }

@@ -26,5 +26,7 @@ namespace BLL.Guilds
 
             return player.ToDie();
         }
+
+        public abstract void Reset();
     }
 }

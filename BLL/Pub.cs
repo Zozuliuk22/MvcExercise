@@ -35,13 +35,8 @@ namespace BLL
                 return player.ToDie();
         }
 
-        public string LoseGame(Player player)
+        public string LoseGame()
         {
-            if (player is null)
-                throw new ArgumentNullException(nameof(player), "The player value cannot be null.");
-
-            player.HasIneffectualMeeting();
-
             return "That's strange. You lost a chance to survive.\n*These players, sometimes, are so illogical.";
         }
 

@@ -89,5 +89,10 @@ namespace BLL.Guilds
                 });
             }
         }
+
+        public override void Reset()
+        {
+            _activeNpc = null;
+        }
     }
 }

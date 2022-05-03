@@ -22,7 +22,7 @@ namespace BLL
 
         public int CurrentBeers { get; private set; }
 
-        public int MaxBeers { get { return _maxBeers; } }
+        public int MaxBeers => _maxBeers;
 
         public Player(string name)
         {
@@ -70,6 +70,14 @@ namespace BLL
         {
             IsAlive = false;
             return "You were killed!";
+        }
+
+        public void Reset()
+        {
+            _score = 0;
+            IsAlive = true;
+            CurrentBudget = _startBudget;
+            CurrentBeers = 0;
         }
 
         public override string ToString() => $"Player {Name} have survived {Score} meetings.";

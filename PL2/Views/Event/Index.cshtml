@@ -35,10 +35,10 @@
                     {
                         <div id="choice">
                             <a class="accept" href="#">Accept</a>
-                            <a class="skip" asp-controller="Meeting" asp-action="Skip">Skip</a>
+                            <a class="skip" asp-controller="Event" asp-action="Skip">Skip</a>
                         </div>
                         <div id="enter-fee">
-                            @using(Html.BeginForm("EnterFee", "Meeting"))
+                            @using(Html.BeginForm("EnterFee", "Event"))
                             {
                                 @Html.LabelFor(m => m.EnteredFee)
                                 @Html.TextBoxFor(m => m.EnteredFee)
@@ -49,8 +49,8 @@
                     else
                     {
                         <div id="choice">
-                            <a class="accept" asp-controller="Meeting" asp-action="Accept">Accept</a>
-                            <a class="skip" asp-controller="Meeting" asp-action="Skip">Skip</a>
+                            <a class="accept" asp-controller="Event" asp-action="Accept">Accept</a>
+                            <a class="skip" asp-controller="Event" asp-action="Skip">Skip</a>
                         </div>
                     }                    
                     
@@ -63,7 +63,8 @@
             </div>
             <div class="frame2">
                 <p>@Model.ResultMeetingMessage</p>
-                <p>@Model.PlayerScore</p>
+                <p>@Model.PlayerScore</p>                
+                <a asp-controller="Event" asp-action="Reset">Start new game</a>
             </div>
         }  
  </div>
@@ -72,7 +73,7 @@
      <script>
          ﻿$(document).ready(function () {
             $('#enter-fee').hide();
-            $('#choice').on('click', function() {
+            $('#choice .accept').on('click', function() {
               $('#choice').hide();
               $('#enter-fee').show();
             });

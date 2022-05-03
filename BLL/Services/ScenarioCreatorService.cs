@@ -13,6 +13,7 @@ namespace BLL
 {
     public class ScenarioCreatorService : IScenarioCreatorService
     {
+
         private readonly ThievesGuild _thievesGuild;
         private readonly BeggarsGuild _beggarsGuild;
         private readonly FoolsGuild _foolsGuild;
@@ -54,11 +55,11 @@ namespace BLL
             _currentMeeting = CreateRandomGuildMeeting();
         }
 
-        public MeetingDto GetModel()
+        public EventDto GetModel()
         {
             CreateRandomGuildMeetingOrBar();
 
-            var meetingDto = new MeetingDto();
+            var meetingDto = new EventDto();
 
             if (_isPub)
             {                
@@ -74,7 +75,7 @@ namespace BLL
             }
             else
             {
-                meetingDto.Name = _currentMeeting.Guild.ToString();
+                meetingDto.Name = _currentMeeting.ToString();
                 meetingDto.WelcomeWord = _currentMeeting.Guild.WelcomeMessage;
                 meetingDto.WelcomeWord += _currentMeeting.Npc is not null ? _currentMeeting.Npc.ToString() : String.Empty;
                 meetingDto.Color = _currentMeeting.Guild.GuildColor.ToString();
@@ -144,7 +145,7 @@ namespace BLL
         public void Skip()
         {
             if(_isPub)
-                _currentMeetingResult = _pub.LoseGame(_currentPlayer);
+                _currentMeetingResult = _pub.LoseGame();
             _currentMeetingResult = _currentMeeting.Guild.LoseGame(_currentPlayer);
             
         }
@@ -157,6 +158,15 @@ namespace BLL
                 if (((AssassinsGuild)_currentMeeting.Guild).CheckContract(fee))
                     ((AssassinsGuild)_currentMeeting.Guild).GetActiveNpc();
             }
+        }
+
+        public void Reset()
+        {
+            _thievesGuild.Reset();
+            _assassinsGuild.Reset();
+            _beggarsGuild.Reset();
+            _foolsGuild.Reset();
+            _currentPlayer.Reset();
         }
     }
 }
