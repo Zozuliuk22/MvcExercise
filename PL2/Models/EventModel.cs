@@ -1,8 +1,10 @@
 ﻿using System.Drawing;
+using System.ComponentModel.DataAnnotations;
+using PL.Properties;
 
 namespace PL.Models
 {
-    public class MeetingModel
+    public class EventModel
     {
         public string Name { get; set; }
 
@@ -21,5 +23,8 @@ namespace PL.Models
         public int PlayerCurrentBeers { get; set; }
 
         public string ResultMeetingMessage { get; set; }
+
+        [Display(Name = "Please, enter a fee:")]
+        public decimal EnteredFee { get; set; }
     }
 }

@@ -70,15 +70,6 @@ namespace PL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, enter a fee as much as you want (but not more than you have):.
-        /// </summary>
-        public static string EnterFeeMessage {
-            get {
-                return ResourceManager.GetString("EnterFeeMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to There are not lots of rules. All that you must know: You have 100 AM$ at the beginning of the game..
         /// </summary>
         public static string InstructionsPoint1 {

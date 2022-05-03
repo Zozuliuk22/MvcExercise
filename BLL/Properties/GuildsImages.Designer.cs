@@ -103,6 +103,16 @@ namespace BLL.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Pub {
+            get {
+                object obj = ResourceManager.GetObject("Pub", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ThievesGuild {
             get {
                 object obj = ResourceManager.GetObject("ThievesGuild", resourceCulture);

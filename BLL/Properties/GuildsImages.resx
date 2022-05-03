@@ -130,6 +130,9 @@
   <data name="FoolsGuild" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FoolsGuild.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Pub" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Pub.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ThievesGuild" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ThievesGuild.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

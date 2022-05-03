@@ -7,6 +7,7 @@ using BLL.Guilds;
 using System.Reflection;
 using DAL.Interfaces;
 using BLL.DTOs;
+using BLL.Properties;
 
 namespace BLL
 {
@@ -37,6 +38,7 @@ namespace BLL
             _methodsCreateGuild = typeof(ScenarioCreatorService)
                 .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(m => m.Name.StartsWith("Create"))
+                .Where(m => m.Name.EndsWith("Meeting"))
                 .ToList();
 
             _currentPlayer = new Player("Viktor");
@@ -44,7 +46,7 @@ namespace BLL
 
         private void CreateRandomGuildMeetingOrBar()
         {            
-            if(_currentPlayer.CurrentBeers < _currentPlayer.MaxBeers)
+            if(_currentPlayer.CurrentBeers < _currentPlayer.MaxBeers && _currentPlayer.Score > 10)
                 _isPub = new Random().Next(2) == 0;
             else
                 _isPub = false;
@@ -101,9 +103,8 @@ namespace BLL
             if (_thievesGuild.CurrentNumberThefts > _thievesGuild.MaxNumberThefts)
             {
                 var method = _methodsCreateGuild.First(m => m.Name.Contains("Thieves"));
-                _methodsCreateGuild.Remove(method);
-                CreateRandomGuildMeeting();
-                return _currentMeeting;
+                _methodsCreateGuild.Remove(method);                
+                return CreateRandomGuildMeeting();
             }
             else
             {
@@ -136,20 +137,8 @@ namespace BLL
                 _currentMeetingResult = _pub.PlayGame(_currentPlayer);
             else
             {
-                if (_currentMeeting.Guild is ThievesGuild)
-                    _currentMeetingResult = _thievesGuild.PlayGame(_currentPlayer);
-
-                if (_currentMeeting.Guild is BeggarsGuild)
-                    _currentMeetingResult = _beggarsGuild.PlayGame(_currentPlayer);
-
-                if (_currentMeeting.Guild is FoolsGuild)
-                    _currentMeetingResult = _foolsGuild.PlayGame(_currentPlayer);
-
-                /*if (_currentMeeting.Guild is AssassinsGuild)
-                    _currentResult = _assassinsGuild.PlayGame(_currentPlayer);*/
+                _currentMeetingResult = _currentMeeting.Guild.PlayGame(_currentPlayer);
             }
-
-            //_currentResult = "This is unknown guild.";
         }
 
         public void Skip()

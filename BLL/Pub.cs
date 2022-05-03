@@ -22,7 +22,7 @@ namespace BLL
 
         public ConsoleColor Color => ConsoleColor.DarkRed;
 
-        public Bitmap Image => GuildsImages.Default;
+        public Bitmap Image => GuildsImages.Pub;
 
         public string PlayGame(Player player)
         {

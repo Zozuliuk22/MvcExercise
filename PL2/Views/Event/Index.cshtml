@@ -1,0 +1,81 @@
+﻿@using PL.Properties
+@using BLL.Properties
+@using System.Drawing
+@model PL.Models.EventModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Meeting";
+}
+
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="~/css/game-stylesheet.css" />
+}
+
+
+
+<div class="menu">
+    @if (Model.PlayerIsAlive)
+        {
+            <div class="frame1">
+                    @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String((byte[])new ImageConverter().ConvertTo(Model.Image, typeof(byte[]))) + "\" />")       
+            </div>
+            <div class="frame2">
+                    @if(Model.ResultMeetingMessage != String.Empty)
+                    {
+                        <p>@Model.ResultMeetingMessage</p>
+                    }
+                    <p>@ScenarioTexts.WalkingMessage @Model.Name</p>
+                    <p>@Model.WelcomeWord</p>
+                    <p>Current budget: @Model.PlayerCurrentBudget</p>
+                    @if(Model.Name.Contains("pub"))
+                    {
+                        <p>Current beers: @Model.PlayerCurrentBeers</p>
+                    }
+                    @if (Model.Name.ToLower().Contains("assassin"))
+                    {
+                        <div id="choice">
+                            <a class="accept" href="#">Accept</a>
+                            <a class="skip" asp-controller="Meeting" asp-action="Skip">Skip</a>
+                        </div>
+                        <div id="enter-fee">
+                            @using(Html.BeginForm("EnterFee", "Meeting"))
+                            {
+                                @Html.LabelFor(m => m.EnteredFee)
+                                @Html.TextBoxFor(m => m.EnteredFee)
+                                <button type="submit">Let's try</button>
+                            }                           
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="choice">
+                            <a class="accept" asp-controller="Meeting" asp-action="Accept">Accept</a>
+                            <a class="skip" asp-controller="Meeting" asp-action="Skip">Skip</a>
+                        </div>
+                    }                    
+                    
+            </div>           
+        }
+        else
+        {
+            <div class="frame1">
+                    @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String((byte[])new ImageConverter().ConvertTo(GuildsImages.Default, typeof(byte[]))) + "\" />")       
+            </div>
+            <div class="frame2">
+                <p>@Model.ResultMeetingMessage</p>
+                <p>@Model.PlayerScore</p>
+            </div>
+        }  
+ </div>
+
+@section Scripts{
+     <script>
+         ﻿$(document).ready(function () {
+            $('#enter-fee').hide();
+            $('#choice').on('click', function() {
+              $('#choice').hide();
+              $('#enter-fee').show();
+            });
+        });
+     </script>
+}
