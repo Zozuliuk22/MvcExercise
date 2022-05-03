@@ -50,7 +50,10 @@ namespace BLL.Guilds
                 throw new ArgumentNullException(nameof(player), "The player value cannot be null.");
 
             if (_activeNpc.Practice.Equals(BeggarsPractice.BeerNeeders))
-                return player.ToDie() + "Lack of beer is sometimes fatal.";
+            {
+                return player.CurrentBeers > 0 ? player.LoseBeer() + " Thank you, my dear friend!" :
+                                                 player.ToDie() + "Lack of beer is sometimes fatal.";
+            }
             else if (player.CurrentBudget >= _activeNpc.Fee)
             {
                 player.LoseMoney(_activeNpc.Fee);

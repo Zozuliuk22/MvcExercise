@@ -21,8 +21,7 @@ namespace BLL
         private List<MethodInfo> _methodsCreateGuild;
 
         private Player _currentPlayer;
-        private string _currentResult = String.Empty;
-
+        private string _currentMeetingResult;
 
         public ScenarioCreatorService(IUnitOfWork unitOfWork)
         {
@@ -39,6 +38,16 @@ namespace BLL
             _currentPlayer = new Player("Viktor");
         }
 
+        public MeetingDto CreateRandomGuildMeetingOrBar()
+        {
+            return null;
+        }
+
+        public MeetingDto CreateBar()
+        {
+            return null;
+        }
+
         public MeetingDto CreateRandomGuildMeeting()
         {
             _currentMeeting = (Meeting)_methodsCreateGuild[new Random()
@@ -53,7 +62,7 @@ namespace BLL
                 PlayerCurrentBudget = _currentPlayer.CurrentBudget,
                 PlayerIsAlive = _currentPlayer.IsAlive,
                 PlayerScore = _currentPlayer.ToString(),
-                ResultMeetingMessage = _currentResult
+                ResultMeetingMessage = _currentMeetingResult
             };
 
             if (_currentMeeting.Npc is null)
@@ -103,13 +112,13 @@ namespace BLL
         public void Accept()
         {
             if (_currentMeeting.Guild is ThievesGuild)
-                _currentResult = _thievesGuild.PlayGame(_currentPlayer);
+                _currentMeetingResult = _thievesGuild.PlayGame(_currentPlayer);
 
             if (_currentMeeting.Guild is BeggarsGuild)
-                _currentResult = _beggarsGuild.PlayGame(_currentPlayer);
+                _currentMeetingResult = _beggarsGuild.PlayGame(_currentPlayer);
 
             if (_currentMeeting.Guild is FoolsGuild)
-                _currentResult = _foolsGuild.PlayGame(_currentPlayer);
+                _currentMeetingResult = _foolsGuild.PlayGame(_currentPlayer);
 
             /*if (_currentMeeting.Guild is AssassinsGuild)
                 _currentResult = _assassinsGuild.PlayGame(_currentPlayer);*/
@@ -119,17 +128,19 @@ namespace BLL
 
         public void Skip()
         {
-            if (_currentMeeting.Guild is ThievesGuild)
-                _currentResult = _thievesGuild.LoseGame(_currentPlayer);
+            _currentMeetingResult = _currentMeeting.Guild.LoseGame(_currentPlayer);
 
-            if (_currentMeeting.Guild is BeggarsGuild)
-                _currentResult = _beggarsGuild.LoseGame(_currentPlayer);
+            //if (_currentMeeting.Guild is ThievesGuild)
+            //    _currentMeeting.Result = _thievesGuild.LoseGame(_currentPlayer);
 
-            if (_currentMeeting.Guild is FoolsGuild)
-                _currentResult = _foolsGuild.LoseGame(_currentPlayer);
+            //if (_currentMeeting.Guild is BeggarsGuild)
+            //    _currentMeeting.Result = _beggarsGuild.LoseGame(_currentPlayer);
 
-            if (_currentMeeting.Guild is AssassinsGuild)
-                _currentResult = _assassinsGuild.LoseGame(_currentPlayer);
+            //if (_currentMeeting.Guild is FoolsGuild)
+            //    _currentMeeting.Result = _foolsGuild.LoseGame(_currentPlayer);
+
+            //if (_currentMeeting.Guild is AssassinsGuild)
+            //    _currentMeeting.Result = _assassinsGuild.LoseGame(_currentPlayer);
 
             //_currentResult = "This is unknown guild.";
         }

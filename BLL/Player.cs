@@ -22,6 +22,8 @@ namespace BLL
 
         public int CurrentBeers { get; private set; }
 
+        public int MaxBeers { get { return _maxBeers; } }
+
         public Player(string name)
         {
             if (String.IsNullOrWhiteSpace(name))
@@ -50,9 +52,19 @@ namespace BLL
             _score += 1;
         }
 
-        public void FindBeer() => CurrentBeers += 1;
+        public string FindBeer()
+        {
+            CurrentBeers += 1;
+            return "";
+        }
 
-        public void LoseBeer() => CurrentBeers -= 1;
+        public string LoseBeer()
+        {
+            CurrentBeers -= 1;
+            return "You donated a bottle of beer.";
+        }
+
+        public void HasIneffectualMeeting() => _score += 1;
 
         public string ToDie()
         {

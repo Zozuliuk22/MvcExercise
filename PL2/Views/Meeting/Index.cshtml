@@ -16,14 +16,18 @@
         <p>@Model.WelcomeGuildsWord</p>
         <p>@Model.WelcomeNpcsWord</p>
         <p>Current budget: @Model.PlayerCurrentBudget</p>
+        <div id="choice">
+            <a class="accept" asp-controller="Meeting" asp-action="Accept">Accept</a>
+            <a class="skip" asp-controller="Meeting" asp-action="Skip">Skip</a>
+        </div>  
     </div>
 
-    <a asp-controller="Meeting" asp-action="Accept">Accept</a>
-<a asp-controller="Meeting" asp-action="Skip">Skip</a>
+    
 }
 else
 {
     <div>
+        <p>@Model.ResultMeetingMessage</p>
         <p>@Model.PlayerScore</p>
     </div>
 }

@@ -55,6 +55,8 @@ namespace BLL.Guilds
             if (player is null)
                 throw new ArgumentNullException(nameof(player), "The player value cannot be null.");
 
+            player.HasIneffectualMeeting();
+
             return $"That's strange. You lost easy money.\n*These players, sometimes, are so illogical.";
         }
 
