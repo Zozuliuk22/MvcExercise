@@ -21,6 +21,9 @@ namespace BLL
         private List<MethodInfo> _methodsCreateGuild;
 
         private Player _currentPlayer;
+        private Pub _pub;
+
+        private bool _isPub;
         private string _currentMeetingResult;
 
         public ScenarioCreatorService(IUnitOfWork unitOfWork)
@@ -29,6 +32,7 @@ namespace BLL
             _beggarsGuild = new BeggarsGuild(unitOfWork);
             _foolsGuild = new FoolsGuild(unitOfWork);
             _assassinsGuild = new AssassinsGuild(unitOfWork);
+            _pub = new Pub();
 
             _methodsCreateGuild = typeof(ScenarioCreatorService)
                 .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
@@ -38,40 +42,56 @@ namespace BLL
             _currentPlayer = new Player("Viktor");
         }
 
-        public MeetingDto CreateRandomGuildMeetingOrBar()
-        {
-            return null;
-        }
-
-        public MeetingDto CreateBar()
-        {
-            return null;
-        }
-
-        public MeetingDto CreateRandomGuildMeeting()
-        {
-            _currentMeeting = (Meeting)_methodsCreateGuild[new Random()
-                                                    .Next(0, _methodsCreateGuild.Count)]
-                                                    .Invoke(this, null);
-
-            var meetingDto = new MeetingDto()
-            {
-                WelcomeGuildsWord = _currentMeeting.Guild.WelcomeMessage,
-                Color = _currentMeeting.Guild.GuildColor.ToString(),
-                GuildName = _currentMeeting.ToString(),
-                PlayerCurrentBudget = _currentPlayer.CurrentBudget,
-                PlayerIsAlive = _currentPlayer.IsAlive,
-                PlayerScore = _currentPlayer.ToString(),
-                ResultMeetingMessage = _currentMeetingResult,
-                Image = _currentMeeting.Guild.GuildImage
-            };
-
-            if (_currentMeeting.Npc is null)
-                meetingDto.WelcomeNpcsWord = "";
+        private void CreateRandomGuildMeetingOrBar()
+        {            
+            if(_currentPlayer.CurrentBeers < _currentPlayer.MaxBeers)
+                _isPub = new Random().Next(2) == 0;
             else
-                meetingDto.WelcomeNpcsWord = _currentMeeting.Npc.ToString();
+                _isPub = false;
+
+            _currentMeeting = CreateRandomGuildMeeting();
+        }
+
+        public MeetingDto GetModel()
+        {
+            CreateRandomGuildMeetingOrBar();
+
+            var meetingDto = new MeetingDto();
+
+            if (_isPub)
+            {                
+                meetingDto.Name = _pub.ToString();
+                meetingDto.WelcomeWord = _pub.WelcomeMessage;               
+                meetingDto.Color = _pub.Color.ToString();
+                meetingDto.Image = _pub.Image;
+                meetingDto.PlayerScore = _currentPlayer.ToString();
+                meetingDto.PlayerIsAlive = _currentPlayer.IsAlive;
+                meetingDto.PlayerCurrentBudget = _currentPlayer.CurrentBudget;
+                meetingDto.PlayerCurrentBeers = _currentPlayer.CurrentBeers;
+                meetingDto.ResultMeetingMessage = _currentMeetingResult;
+            }
+            else
+            {
+                meetingDto.Name = _currentMeeting.Guild.ToString();
+                meetingDto.WelcomeWord = _currentMeeting.Guild.WelcomeMessage;
+                meetingDto.WelcomeWord += _currentMeeting.Npc is not null ? _currentMeeting.Npc.ToString() : String.Empty;
+                meetingDto.Color = _currentMeeting.Guild.GuildColor.ToString();
+                meetingDto.Image = _currentMeeting.Guild.GuildImage;
+                meetingDto.PlayerScore = _currentPlayer.ToString();
+                meetingDto.PlayerIsAlive = _currentPlayer.IsAlive;
+                meetingDto.PlayerCurrentBudget = _currentPlayer.CurrentBudget;
+                meetingDto.PlayerCurrentBeers = _currentPlayer.CurrentBeers;
+                meetingDto.ResultMeetingMessage = _currentMeetingResult;
+            }
 
             return meetingDto;
+        }
+
+        private Meeting CreateRandomGuildMeeting()
+        {
+            return (Meeting)_methodsCreateGuild[new Random()
+                                                    .Next(0, _methodsCreateGuild.Count)]
+                                                    .Invoke(this, null);           
         }
 
         private Meeting CreateThievesGuildMeeting()
@@ -112,38 +132,32 @@ namespace BLL
 
         public void Accept()
         {
-            if (_currentMeeting.Guild is ThievesGuild)
-                _currentMeetingResult = _thievesGuild.PlayGame(_currentPlayer);
+            if (_isPub)
+                _currentMeetingResult = _pub.PlayGame(_currentPlayer);
+            else
+            {
+                if (_currentMeeting.Guild is ThievesGuild)
+                    _currentMeetingResult = _thievesGuild.PlayGame(_currentPlayer);
 
-            if (_currentMeeting.Guild is BeggarsGuild)
-                _currentMeetingResult = _beggarsGuild.PlayGame(_currentPlayer);
+                if (_currentMeeting.Guild is BeggarsGuild)
+                    _currentMeetingResult = _beggarsGuild.PlayGame(_currentPlayer);
 
-            if (_currentMeeting.Guild is FoolsGuild)
-                _currentMeetingResult = _foolsGuild.PlayGame(_currentPlayer);
+                if (_currentMeeting.Guild is FoolsGuild)
+                    _currentMeetingResult = _foolsGuild.PlayGame(_currentPlayer);
 
-            /*if (_currentMeeting.Guild is AssassinsGuild)
-                _currentResult = _assassinsGuild.PlayGame(_currentPlayer);*/
+                /*if (_currentMeeting.Guild is AssassinsGuild)
+                    _currentResult = _assassinsGuild.PlayGame(_currentPlayer);*/
+            }
 
             //_currentResult = "This is unknown guild.";
         }
 
         public void Skip()
         {
+            if(_isPub)
+                _currentMeetingResult = _pub.LoseGame(_currentPlayer);
             _currentMeetingResult = _currentMeeting.Guild.LoseGame(_currentPlayer);
-
-            //if (_currentMeeting.Guild is ThievesGuild)
-            //    _currentMeeting.Result = _thievesGuild.LoseGame(_currentPlayer);
-
-            //if (_currentMeeting.Guild is BeggarsGuild)
-            //    _currentMeeting.Result = _beggarsGuild.LoseGame(_currentPlayer);
-
-            //if (_currentMeeting.Guild is FoolsGuild)
-            //    _currentMeeting.Result = _foolsGuild.LoseGame(_currentPlayer);
-
-            //if (_currentMeeting.Guild is AssassinsGuild)
-            //    _currentMeeting.Result = _assassinsGuild.LoseGame(_currentPlayer);
-
-            //_currentResult = "This is unknown guild.";
+            
         }
 
 

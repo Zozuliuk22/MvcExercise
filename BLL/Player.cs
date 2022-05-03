@@ -52,7 +52,7 @@ namespace BLL
             _score += 1;
         }
 
-        public string FindBeer()
+        public string BuyBeer()
         {
             CurrentBeers += 1;
             return "Congratulations! You have got a chance to survive.";

@@ -24,10 +24,13 @@
                     {
                         <p>@Model.ResultMeetingMessage</p>
                     }
-                    <p>@ScenarioTexts.WalkingMessage @Model.GuildName</p>
-                    <p>@Model.WelcomeGuildsWord</p>
-                    <p>@Model.WelcomeNpcsWord</p>
+                    <p>@ScenarioTexts.WalkingMessage @Model.Name</p>
+                    <p>@Model.WelcomeWord</p>
                     <p>Current budget: @Model.PlayerCurrentBudget</p>
+                    @if(Model.Name.Contains("pub"))
+                    {
+                        <p>Current beers: @Model.PlayerCurrentBeers</p>
+                    }
                     <div id="choice">
                         <a class="accept" asp-controller="Meeting" asp-action="Accept">Accept</a>
                         <a class="skip" asp-controller="Meeting" asp-action="Skip">Skip</a>

@@ -9,13 +9,13 @@ namespace BLL.DTOs
 {
     public class MeetingDto
     {
-        public string GuildName { get; set; }
+        public string Name { get; set; }
 
-        public string WelcomeGuildsWord { get; set; }
-
-        public string WelcomeNpcsWord { get; set; }
+        public string WelcomeWord { get; set; }
 
         public string Color { get; set; }
+
+        public Bitmap Image { get; set; }
 
         public string PlayerScore { get; set; }
 
@@ -23,8 +23,8 @@ namespace BLL.DTOs
 
         public decimal PlayerCurrentBudget { get; set; }
 
-        public string ResultMeetingMessage { get; set; }
+        public int PlayerCurrentBeers { get; set; }
 
-        public Bitmap Image { get; set; }
+        public string ResultMeetingMessage { get; set; }        
     }
 }

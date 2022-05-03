@@ -9,7 +9,7 @@ namespace BLL
 {
     public interface IScenarioCreatorService
     {
-        MeetingDto CreateRandomGuildMeeting();
+        MeetingDto GetModel();
         void Accept();
         void Skip();
         void UseEnteredFee(decimal fee);

@@ -20,7 +20,7 @@ namespace PL.Controllers
         public IActionResult Index()
         {
             var model = new MeetingModel();
-            var item = _scenarioCreator.CreateRandomGuildMeeting();
+            var item = _scenarioCreator.GetModel();
             model = _mapper.Map(item, model);
             return View(model);
         }
