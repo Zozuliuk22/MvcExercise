@@ -3,20 +3,23 @@
     ViewData["Title"] = "Home";
 }
 
-<div>
-   <div>
-        <img src="~/images/HomeImage.jpg" style="width : 40%"/>
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="~/css/game-stylesheet.css" />
+}
+
+<div class="menu">
+   <div class="frame1">
+        <img src="~/images/HomeImage.jpg"/>
    </div>
-   <div>
-        <p>@ScenarioTexts.WelcomeTitle</p>
-        <p>@ScenarioTexts.WelcomeMessagePart1</p>
-        <p>@ScenarioTexts.WelcomeMessagePart2</p>
-        <p>@ScenarioTexts.WelcomeMessagePart3</p>
-        <p>@ScenarioTexts.WelcomeMessagePart4</p>
-        <p>@ScenarioTexts.InstructionsTitle</p>
+   <div class="frame2">
+        <h5 id="title">@ScenarioTexts.WelcomeTitle</h5>
+        <p id="large-text">@ScenarioTexts.WelcomeMessagePart</p>
+        <br />
+        <h5 id="title">@ScenarioTexts.InstructionsTitle</h5>
         <p>@ScenarioTexts.InstructionsPoint1</p>
         <p>@ScenarioTexts.InstructionsPoint2</p>
         <p>@ScenarioTexts.InstructionsPoint3</p>
-        <p>@ScenarioTexts.WelcomeWarningMessage</p>
+        <br />
+        <h6 id="warning-text">@ScenarioTexts.WelcomeWarningMessage</h6>
     </div>
  </div>

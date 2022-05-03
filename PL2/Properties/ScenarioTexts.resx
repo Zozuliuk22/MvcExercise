@@ -138,17 +138,8 @@
   <data name="WalkingMessage" xml:space="preserve">
     <value>You go along the streets of Ankh-Morpork and ...</value>
   </data>
-  <data name="WelcomeMessagePart1" xml:space="preserve">
-    <value>Ankh-Morpork lies on the River Ankh (the most polluted waterway on the Discworld and reputedly solid enough to walk on),</value>
-  </data>
-  <data name="WelcomeMessagePart2" xml:space="preserve">
-    <value>where the fertile loam of the Sto Plains meets the Circle Sea. This, naturally, puts it in an excellent trading position.</value>
-  </data>
-  <data name="WelcomeMessagePart3" xml:space="preserve">
-    <value>The central city divides more or less into Ankh (the posh part) and Morpork (the humble part,</value>
-  </data>
-  <data name="WelcomeMessagePart4" xml:space="preserve">
-    <value>which includes the slum area known as "the Shades"), which are separated by the River Ankh.</value>
+  <data name="WelcomeMessagePart" xml:space="preserve">
+    <value>Ankh-Morpork lies on the River Ankh (the most polluted waterway on the Discworld and reputedly solid enough to walk on), where the fertile loam of the Sto Plains meets the Circle Sea. This, naturally, puts it in an excellent trading position. The central city divides more or less into Ankh (the posh part) and Morpork (the humble part, which includes the slum area known as "the Shades"), which are separated by the River Ankh.</value>
   </data>
   <data name="WelcomeTitle" xml:space="preserve">
     <value>Welcome to the fine city of Ankh-Morpork!</value>

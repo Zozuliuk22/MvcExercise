@@ -124,38 +124,11 @@ namespace PL.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ankh-Morpork lies on the River Ankh (the most polluted waterway on the Discworld and reputedly solid enough to walk on),.
+        ///   Looks up a localized string similar to Ankh-Morpork lies on the River Ankh (the most polluted waterway on the Discworld and reputedly solid enough to walk on), where the fertile loam of the Sto Plains meets the Circle Sea. This, naturally, puts it in an excellent trading position. The central city divides more or less into Ankh (the posh part) and Morpork (the humble part, which includes the slum area known as &quot;the Shades&quot;), which are separated by the River Ankh..
         /// </summary>
-        public static string WelcomeMessagePart1 {
+        public static string WelcomeMessagePart {
             get {
-                return ResourceManager.GetString("WelcomeMessagePart1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to where the fertile loam of the Sto Plains meets the Circle Sea. This, naturally, puts it in an excellent trading position..
-        /// </summary>
-        public static string WelcomeMessagePart2 {
-            get {
-                return ResourceManager.GetString("WelcomeMessagePart2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The central city divides more or less into Ankh (the posh part) and Morpork (the humble part,.
-        /// </summary>
-        public static string WelcomeMessagePart3 {
-            get {
-                return ResourceManager.GetString("WelcomeMessagePart3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to which includes the slum area known as &quot;the Shades&quot;), which are separated by the River Ankh..
-        /// </summary>
-        public static string WelcomeMessagePart4 {
-            get {
-                return ResourceManager.GetString("WelcomeMessagePart4", resourceCulture);
+                return ResourceManager.GetString("WelcomeMessagePart", resourceCulture);
             }
         }
         
