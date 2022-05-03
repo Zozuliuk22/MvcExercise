@@ -7,6 +7,8 @@ using BLL.NPCs;
 using BLL.Constants;
 using DAL.Enums;
 using DAL.Interfaces;
+using System.Drawing;
+using BLL.Properties;
 
 
 
@@ -33,6 +35,8 @@ namespace BLL.Guilds
         }
 
         public override ConsoleColor GuildColor => ConsoleColor.DarkGreen;
+
+        public override Bitmap GuildImage => GuildsImages.BeggarsGuild;
 
         public Npc GetActiveNpc()
         {

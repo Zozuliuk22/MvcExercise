@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using BLL.NPCs;
 using BLL.Constants;
 using DAL.Interfaces;
+using System.Drawing;
+using BLL.Properties;
 
 namespace BLL.Guilds
 {
@@ -29,6 +31,8 @@ namespace BLL.Guilds
         }
 
         public override ConsoleColor GuildColor => ConsoleColor.Yellow;
+
+        public override Bitmap GuildImage => GuildsImages.FoolsGuild;
 
         public Npc GetActiveNpc()
         {

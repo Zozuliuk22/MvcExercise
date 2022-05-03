@@ -62,7 +62,8 @@ namespace BLL
                 PlayerCurrentBudget = _currentPlayer.CurrentBudget,
                 PlayerIsAlive = _currentPlayer.IsAlive,
                 PlayerScore = _currentPlayer.ToString(),
-                ResultMeetingMessage = _currentMeetingResult
+                ResultMeetingMessage = _currentMeetingResult,
+                Image = _currentMeeting.Guild.GuildImage
             };
 
             if (_currentMeeting.Npc is null)

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using DAL.Interfaces;
 using BLL.NPCs;
 using DAL;
+using System.Drawing;
+using BLL.Properties;
 
 namespace BLL.Guilds
 {
@@ -22,6 +24,8 @@ namespace BLL.Guilds
         }
 
         public override ConsoleColor GuildColor => ConsoleColor.Blue;
+
+        public override Bitmap GuildImage => GuildsImages.ThievesGuild;
 
         public int MaxNumberThefts => _maxNumberThefts;
 

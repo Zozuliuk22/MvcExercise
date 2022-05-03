@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace BLL.DTOs
 {
@@ -23,5 +24,7 @@ namespace BLL.DTOs
         public decimal PlayerCurrentBudget { get; set; }
 
         public string ResultMeetingMessage { get; set; }
+
+        public Bitmap Image { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace BLL
         public string FindBeer()
         {
             CurrentBeers += 1;
-            return "";
+            return "Congratulations! You have got a chance to survive.";
         }
 
         public string LoseBeer()

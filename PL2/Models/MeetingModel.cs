@@ -1,4 +1,6 @@
-﻿namespace PL.Models
+﻿using System.Drawing;
+
+namespace PL.Models
 {
     public class MeetingModel
     {
@@ -17,5 +19,7 @@
         public decimal PlayerCurrentBudget { get; set; }
 
         public string ResultMeetingMessage { get; set; }
+
+        public Bitmap Image { get; set; }
     }
 }

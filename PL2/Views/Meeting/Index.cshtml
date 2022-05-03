@@ -1,33 +1,45 @@
 ﻿@using PL.Properties
+@using BLL.Properties
+@using System.Drawing
 @model PL.Models.MeetingModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Meeting";
 }
 
-@if (Model.PlayerIsAlive)
-{
-    <div>
-        @if(Model.ResultMeetingMessage != String.Empty)
-        {
-            <p>@Model.ResultMeetingMessage</p>
-        }
-        <p>@ScenarioTexts.WalkingMessage @Model.GuildName</p>
-        <p>@Model.WelcomeGuildsWord</p>
-        <p>@Model.WelcomeNpcsWord</p>
-        <p>Current budget: @Model.PlayerCurrentBudget</p>
-        <div id="choice">
-            <a class="accept" asp-controller="Meeting" asp-action="Accept">Accept</a>
-            <a class="skip" asp-controller="Meeting" asp-action="Skip">Skip</a>
-        </div>  
-    </div>
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="~/css/game-stylesheet.css" />
+}
 
-    
-}
-else
-{
-    <div>
-        <p>@Model.ResultMeetingMessage</p>
-        <p>@Model.PlayerScore</p>
-    </div>
-}
+
+
+<div class="menu">
+    @if (Model.PlayerIsAlive)
+        {
+            <div class="frame1">
+                    @Html.Raw("<img src=\"data:image/jpeg;base64," + Convert.ToBase64String((byte[])new ImageConverter().ConvertTo(Model.Image, typeof(byte[]))) + "\" />")       
+            </div>
+            <div class="frame2">
+                    @if(Model.ResultMeetingMessage != String.Empty)
+                    {
+                        <p>@Model.ResultMeetingMessage</p>
+                    }
+                    <p>@ScenarioTexts.WalkingMessage @Model.GuildName</p>
+                    <p>@Model.WelcomeGuildsWord</p>
+                    <p>@Model.WelcomeNpcsWord</p>
+                    <p>Current budget: @Model.PlayerCurrentBudget</p>
+                    <div id="choice">
+                        <a class="accept" asp-controller="Meeting" asp-action="Accept">Accept</a>
+                        <a class="skip" asp-controller="Meeting" asp-action="Skip">Skip</a>
+                    </div>
+            </div>           
+        }
+        else
+        {
+            <div class="frame2">
+                <p>@Model.ResultMeetingMessage</p>
+                <p>@Model.PlayerScore</p>
+            </div>
+        }  
+ </div>
+

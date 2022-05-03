@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.NPCs;
 using DAL.Interfaces;
+using BLL.Properties;
 
 namespace BLL.Guilds
 {
@@ -31,7 +33,9 @@ namespace BLL.Guilds
         }
 
         public override ConsoleColor GuildColor => ConsoleColor.DarkMagenta;
-        
+
+        public override Bitmap GuildImage => GuildsImages.AssassinsGuild;
+
         public bool CheckContract(decimal fee)
         {
             if (fee > 0)
